@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Android Keyboard Input Sound</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <input type="text" id="textInput" placeholder="Type something on your Android keyboard">
+
+  <script>
+    function playBeepSound() {
+      // Create an AudioContext
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+      // Create an oscillator
+      const oscillator = audioContext.createOscillator();
+
+      // Connect the oscillator to the audio context's destination (speakers)
+      oscillator.connect(audioContext.destination);
+
+      // Set the oscillator type to "sine" for a simple beep sound
+      oscillator.type = 'sine';
+
+      // Set the frequency (pitch) of the sound
+      oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+
+      // Start the oscillator
+      oscillator.start();
+
+      // Stop the oscillator after 100 milliseconds (adjust as needed)
+      setTimeout(() => {
+        oscillator.stop();
+      }, 100);
+    }
+
+    // Add an input event listener to the text input
+    document.getElementById('textInput').addEventListener('input', function(event) {
+      console.log('Input:', event.data);
+      playBeepSound();
+    });
+  </script>
+
+</body>
+</html>
